@@ -1,64 +1,64 @@
-const clone = require('clone')
-const config = require('./config')
+const clone = require("clone");
+const config = require("./config");
 
-const db = {}
+const db = {};
 
 const defaultData = {
   contacts: [
     {
-      id: 'richard',
-      name: 'Richard Kalehoff',
-      handle: '@richardkalehoff',
-      avatarURL: config.origin + '/richard.jpg'
+      id: "richard",
+      name: "Richard Kalehoff",
+      handle: "@richardkalehoff",
+      avatarURL: config.origin + "/richard.jpg",
     },
     {
-      id: 'karen',
-      name: 'Karen Isgrigg',
-      handle: '@karen_isgrigg',
-      avatarURL: config.origin + '/karen.jpg'
+      id: "karen",
+      name: "Karen Isgrigg",
+      handle: "@karen_isgrigg",
+      avatarURL: config.origin + "/karen.jpg",
     },
     {
-      id: 'tyler',
-      name: 'Tyler McGinnis',
-      handle: '@tylermcginnis',
-      avatarURL: config.origin + '/tyler.jpg'
-    }
-  ]
-}
+      id: "tyler",
+      name: "Tyler McGinnis",
+      handle: "@tylermcginnis",
+      avatarURL: config.origin + "/tyler.jpg",
+    },
+  ],
+};
 
 const get = (token) => {
-  let data = db[token]
+  let data = db[token];
 
   if (data == null) {
-    data = db[token] = clone(defaultData)
+    data = db[token] = clone(defaultData);
   }
 
-  return data
-}
+  return data;
+};
 
 const add = (token, contact) => {
   if (!contact.id) {
-    contact.id = Math.random().toString(36).substr(-8)
+    contact.id = Math.random().toString(36).substr(-8);
   }
 
-  get(token).contacts.push(contact)
+  get(token).contacts.push(contact);
 
-  return contact
-}
+  return contact;
+};
 
 const remove = (token, id) => {
-  const data = get(token)
-  const contact = data.contacts.find(c => c.id === id)
+  const data = get(token);
+  const contact = data.contacts.find((c) => c.id === id);
 
   if (contact) {
-    data.contacts = data.contacts.filter(c => c !== contact)
+    data.contacts = data.contacts.filter((c) => c !== contact);
   }
 
-  return { contact }
-}
+  return { contact };
+};
 
 module.exports = {
   get,
   add,
-  remove
-}
+  remove,
+};

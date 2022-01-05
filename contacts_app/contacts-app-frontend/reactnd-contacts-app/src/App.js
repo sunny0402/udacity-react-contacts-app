@@ -44,6 +44,9 @@ class App extends Component {
         return a_contact.id !== contact.id;
       }),
     }));
+    //update backend database
+    //restart server to get initial list of contacts
+    ContactsAPI.remove(contact);
   };
   render() {
     return (
