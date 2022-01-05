@@ -29,7 +29,12 @@ class App extends Component {
     ],
   };
   */
-
+  state = { contacts: [] };
+  componentDidMount() {
+    ContactsAPI.getAll().then((contacts) => {
+      this.setState(() => ({ contacts }));
+    });
+  }
   removeContact = (contact) => {
     // pass set state a a function which will return an object
     // this object will be merge with current object in state
