@@ -28,7 +28,7 @@ class ListContacts extends Component {
 
   render() {
     const { query } = this.state;
-    const { contacts, onDeleteContacts } = this.props;
+    const { contacts, onDeleteContacts, onNavigate } = this.props;
 
     //the search feature, only include that have same characters as in query
     const showingContacts =
@@ -47,10 +47,11 @@ class ListContacts extends Component {
             type="text"
             placeholder="search ..."
             value={query}
-            // onChange of the input field run updateQuery
-            // updateQuery resets this.state.query
             onChange={(event) => this.updateQuery(event.target.value)}
           />
+          <a href="#create" onClick={onNavigate} className="add-contact">
+            Add a Contact
+          </a>
         </div>
 
         {/* some of the contacts have been filtered if 

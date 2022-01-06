@@ -1,35 +1,10 @@
 import React, { Component } from "react";
 import ListContacts from "./ListContacts";
 import * as ContactsAPI from "./utils/ContactsAPI";
+import CreateContact from "./CreateContact";
 
 class App extends Component {
-  // state will have a contacts property
-  //When defining a component's initial state, avoid initializing that state with props
-  /*
-  state = {
-    contacts: [
-      {
-        id: "karen",
-        name: "Karen Isgrigg",
-        handle: "karen_isgrigg",
-        avatarURL: "http://localhost:5001/karen.jpg",
-      },
-      {
-        id: "richard",
-        name: "Richard Kalehoff",
-        handle: "richardkalehoff",
-        avatarURL: "http://localhost:5001/richard.jpg",
-      },
-      {
-        id: "tyler",
-        name: "Tyler McGinnis",
-        handle: "tylermcginnis",
-        avatarURL: "http://localhost:5001/tyler.jpg",
-      },
-    ],
-  };
-  */
-  state = { contacts: [] };
+  state = { contacts: [], screen: "list" };
   componentDidMount() {
     ContactsAPI.getAll().then((contacts) => {
       this.setState(() => ({ contacts }));
@@ -51,10 +26,20 @@ class App extends Component {
   render() {
     return (
       <div>
-        <ListContacts
-          contacts={this.state.contacts}
-          onDeleteContacts={this.removeContact}
-        />
+        {/* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators#Short-circuit_evaluation */}
+        {/* short circuit evaluation expr1 && expr2 if expr1 is true then expr2 is evaluated */}
+        {this.state.screen === "list" && (
+          <ListContacts
+            contacts={this.state.contacts}
+            onDeleteContacts={this.removeContact}
+            onNavigate={() => {
+              this.setState(() => ({
+                screen: "create",
+              }));
+            }}
+          />
+        )}
+        {this.state.screen === "create" && <CreateContact />}
       </div>
     );
   }
