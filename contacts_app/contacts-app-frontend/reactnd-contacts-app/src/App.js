@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import ListContacts from "./ListContacts";
 import * as ContactsAPI from "./utils/ContactsAPI";
 import CreateContact from "./CreateContact";
+import { Route } from "react-router-dom";
 
 class App extends Component {
-  state = { contacts: [], screen: "list" };
+  state = { contacts: [] };
   componentDidMount() {
     ContactsAPI.getAll().then((contacts) => {
       this.setState(() => ({ contacts }));
@@ -12,7 +13,7 @@ class App extends Component {
   }
   removeContact = (contact) => {
     // pass set state a a function which will return an object
-    // this object will be merge with current object in state
+    // this object will be merged with current object in state
     this.setState((currentState) => ({
       contacts: currentState.contacts.filter((a_contact) => {
         //return an array with contacts, but with the one we passed removed
@@ -26,20 +27,17 @@ class App extends Component {
   render() {
     return (
       <div>
-        {/* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators#Short-circuit_evaluation */}
-        {/* short circuit evaluation expr1 && expr2 if expr1 is true then expr2 is evaluated */}
-        {this.state.screen === "list" && (
-          <ListContacts
-            contacts={this.state.contacts}
-            onDeleteContacts={this.removeContact}
-            onNavigate={() => {
-              this.setState(() => ({
-                screen: "create",
-              }));
-            }}
-          />
-        )}
-        {this.state.screen === "create" && <CreateContact />}
+        <Route
+          exact
+          path="/"
+          render={() => (
+            <ListContacts
+              contacts={this.state.contacts}
+              onDeleteContacts={this.removeContact}
+            />
+          )}
+        />
+        <Route path="/create" component={CreateContact} />
       </div>
     );
   }

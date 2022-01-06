@@ -1,5 +1,6 @@
 import React, { Component, useLayoutEffect } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 /*
 If a component is only using a render method to display content, 
@@ -28,7 +29,7 @@ class ListContacts extends Component {
 
   render() {
     const { query } = this.state;
-    const { contacts, onDeleteContacts, onNavigate } = this.props;
+    const { contacts, onDeleteContacts } = this.props;
 
     //the search feature, only include that have same characters as in query
     const showingContacts =
@@ -49,9 +50,9 @@ class ListContacts extends Component {
             value={query}
             onChange={(event) => this.updateQuery(event.target.value)}
           />
-          <a href="#create" onClick={onNavigate} className="add-contact">
+          <Link to="/create" className="add-contact">
             Add a Contact
-          </a>
+          </Link>
         </div>
 
         {/* some of the contacts have been filtered if 
