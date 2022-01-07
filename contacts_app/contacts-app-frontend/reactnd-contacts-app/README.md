@@ -36,3 +36,7 @@ https://v5.reactrouter.com/web/api/Link
 </Link>
 
 <Route> component renders UI when path matches url.
+
+Serialize form data
+https://www.npmjs.com/package/form-serialize
+npm install --save form-serialize

@@ -9,7 +9,7 @@ function ListContacts(props) {
 */
 class ListContacts extends Component {
   static propTypes = {
-    contact: PropTypes.array.isRequired,
+    contacts: PropTypes.array.isRequired,
     onDeleteContacts: PropTypes.func.isRequired,
   };
 

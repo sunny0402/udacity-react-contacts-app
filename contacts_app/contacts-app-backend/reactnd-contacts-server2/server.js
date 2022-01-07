@@ -13,13 +13,9 @@ app.get("/", (req, res) => {
   const help = `
   <pre>
     Welcome to the Address Book API!
-
     Use an Authorization header to work with your own data:
-
     fetch(url, { headers: { 'Authorization': 'whatever-you-want' }})
-
     The following endpoints are available:
-
     GET /contacts
     DELETE /contacts/:id
     POST /contacts { name, handle, avatarURL }

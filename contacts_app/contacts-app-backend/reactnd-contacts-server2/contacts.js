@@ -9,19 +9,19 @@ const defaultData = {
       id: "richard",
       name: "Richard Kalehoff",
       handle: "@richardkalehoff",
-      avatarURL: config.origin + "/richard.jpg",
+      avatarURL: config.origin + "/public/richard.jpg",
     },
     {
       id: "karen",
       name: "Karen Isgrigg",
       handle: "@karen_isgrigg",
-      avatarURL: config.origin + "/karen.jpg",
+      avatarURL: config.origin + "/public/karen.jpg",
     },
     {
       id: "tyler",
       name: "Tyler McGinnis",
       handle: "@tylermcginnis",
-      avatarURL: config.origin + "/tyler.jpg",
+      avatarURL: config.origin + "/public/tyler.jpg",
     },
   ],
 };

@@ -8,21 +8,26 @@ class App extends Component {
   state = { contacts: [] };
   componentDidMount() {
     ContactsAPI.getAll().then((contacts) => {
+      console.log(contacts);
       this.setState(() => ({ contacts }));
     });
   }
   removeContact = (contact) => {
-    // pass set state a a function which will return an object
-    // this object will be merged with current object in state
     this.setState((currentState) => ({
       contacts: currentState.contacts.filter((a_contact) => {
         //return an array with contacts, but with the one we passed removed
         return a_contact.id !== contact.id;
       }),
     }));
-    //update backend database
-    //restart server to get initial list of contacts
+    //update backend database, restart server to get initial list of contacts
     ContactsAPI.remove(contact);
+  };
+  createContact = (contact) => {
+    ContactsAPI.create(contact).then((contact) => {
+      this.setState((oldState) => ({
+        contacts: oldState.contacts.concat([contact]),
+      }));
+    });
   };
   render() {
     return (
@@ -37,7 +42,19 @@ class App extends Component {
             />
           )}
         />
-        <Route path="/create" component={CreateContact} />
+        {/* history prop provided by React Router */}
+        {/* navigate to homepage after creating contact */}
+        <Route
+          path="/create"
+          render={({ history }) => (
+            <CreateContact
+              onCreateContact={(contact) => {
+                this.createContact(contact);
+                history.push("/");
+              }}
+            />
+          )}
+        />
       </div>
     );
   }
